@@ -1,0 +1,55 @@
+<!-- The text this effect should be short and also you need a mono space font, so the letter should be of equal sizes.
+I included a font named source code pro from google font.
+
+We use before and after pseudo elements for this and we want them to have an absolute position relative to h1 and not to the whole page,
+so we gave h1 selector a position of relative.
+
+We want to start by having a full width of ::before (so it has full width of it's container) and then slowly disappaers, so slowly, it reaveals the
+characters that are underneath it.
+
+Now create a @keyframe and name it typewriter and inside it's to {} , when we say left: 100%; it means that we want the ::before pseudo element which
+currently is at the left side of it's container, to ultimately go to the RIGHT side, so important: left: 100%; means to have a DISTANCE of 100% from left side.
+So inside @keyframe, to {left: 100%;} means we want it to move 100% AWAY from where it was.
+
+So now we can see as the animation is happening, it reaveals the content behind it(currently we give ::before a background color, so we can't see
+it's underneath content from start, but as the animation goes on, we can see them slowly).
+
+Currently, we're using `ease` in animation property of h1::before and therefore, after the animation FINISHES, h1::before gonna come back to it's
+starting point, but we don't want that(so after the animation finishes, it's gonna AGAIN cover the content which is underneath it), so I added a
+`forwards` after `ease` and with this, once the animation runs, it(the element that has animation with `forwards` on it) doesn't go
+back to it's starting position which is the left side of content, so it WON'T cover the content, so it STAYS at the end of text underneath it.
+
+Also we didn't put a `from {}` in the @keyframes typewriter {}, so we didn't put a starting point and we only put an ending point. Now IF the starting
+point is the same as whatever your initial position for that element(in this case, that element is h1::before) would be(in our case, the starting position of
+h1::before is: top: 0; right: 0; bottom: 0; left: 0;) anyway, you don't have to declare the initial property that you're animating in the @keyframes.
+So in this case, we're currently changing the left property of h1::before and the initial value for this property for this element that we're animating,
+is 0. Now because our initial value for left property for this element is ALSO 0, we didn't need to re-declare this left: 0; in the from {} of
+@keyframes .
+
+Now instead of using `ease` in animation property of h1::before , we use steps() . Now this is the one thing where JS maybe could do sth that we
+can't do here with css and that's knowing how many characters we have in the text there. So with css, we just have to count them ourselves(including the
+period and all the spaces)! and the number of these characters(again, including spaces and period) is the number we give to steps() .
+So what we're saying is that: I want my typewriter animation goes from left of 0 to left of 100%(so goes 100% away from it's initial state which is left: 0;)
+
+Now if you're wondering that experts say: NOT to do animations using positioning, like top left and right and they usually say, instead use things like:
+transform(), scale() , because we don't need a buttery smooth 60fps (frames per second) animation for this. So here it's easiest way to do it.
+So that's why we're doing it like this.
+
+So here, we have 24 steps and that number depends on the characters of your text and it's revealing one letter at a time.
+
+if you don't make the container of h1, center with display: grid; place-content: center; or with flexbox, what's gonna happen is that
+the revealing animation goes from all of the WHOLE LINE and not just ACTUAL WIDTH of text. So if you don't do this, the width would stretch and
+by using display: grid; and place-content: center; it causes the element to shrink it's width to it's ACTUAL CONTENT and NOT WHOLE BLOCK.
+Important: Now what you can do to get this behavior by default, is that you can give the h1 a width of max-content and with this, it's gonna
+ shrink and fit it's width of the content inside of it without breaking that content.
+
+Using clamp() in font-size, the font would shrink down when the screen gets smaller. It does hit a minimum size though and on smaller screens you will
+get an overflow. Why?
+Because yes, the font is shrinking down, but the content won't break into multiple lines because of width set to max-content. But maybe you wonder
+still the font would get smaller and it causes the element's width to shrink down, BUT the thing is that that font-size also hit a minimum size.
+So for getting rid of that overflow on smaller screens, you can write a media query that turn this effect off on smaller screens OR make the text
+that has this animation less(less characters).
+
+Now let's give the background of h1::before the SAME as our text background. By doing this, it SEEMS that there isn't any letters at the beginning,
+but the thing is by having the same background on h1::before, it makes the text underneath it, invisible, so it seems there isn't any letters at the
+beginning. So now it's like the text is being typed, because the color which is covering it, is the SAME as the background of text.-->
