@@ -52,4 +52,36 @@ that has this animation less(less characters).
 
 Now let's give the background of h1::before the SAME as our text background. By doing this, it SEEMS that there isn't any letters at the beginning,
 but the thing is by having the same background on h1::before, it makes the text underneath it, invisible, so it seems there isn't any letters at the
-beginning. So now it's like the text is being typed, because the color which is covering it, is the SAME as the background of text.-->
+beginning. So now it's like the text is being typed, because the color which is covering it, is the SAME as the background of text.
+
+9:40:
+Adding the caret:
+Now we wanna create the caret and for that, we use the ::after and there, we used em unit, because we're using clamp() and therefore our font-size could
+change, so that means that if the font is changing, I want the width of the caret to grow and shrink(according to if the width of device grew or shrank) with
+that font-size, so we used em which is gonna match the font-size, so it adopts.
+Now we gave it the same animation that we gave to ::before, so they're going to right at the same pace.
+Now because we're using the same speed in two places, let's create a custom property for it named --typewriterSpeed .
+
+11:50
+The blinking animation:
+Let's write an animation named blink. The speed we specify for when using the blink animation is the speed that it would blink.
+
+Now I want to make the blink animation to happen BEFORE the typewriter animation and for this, we put a time(delay) after the steps() when using
+typewriter animation(why typewriter? because we want a delay on THIS animation) in BOTH ::before and ::after (so they have both a same speed).
+
+So there is some time BEFORE the typing effect happens.
+
+14:50
+Making it easier to customize:
+
+
+Animating the other text:
+We want the typing happens and THEN that subtitle comes in. So create a @keyframes for that. There, by saying:
+to {
+     transform: translateY(0);
+}
+we say, at the END, it should end where it belongs, so we need to make that element at the down of it's ACTUAL place, AT THE BEGINNING. So in the
+normal state of that element, make that element LOWER. So we gave it translateY(3rem);
+Now we need to make this animation for this element to be delayed, until the typing is finished. So we can add a var(----typewriterSpeed) as delay
+for .subtitle . BUT, wait, the typewriter effect itself has ITSELF a delay. So we need to include that too. So we use a calc() (also we gave it a little
+more than delay). So it type the whole thing and about after a second, it should comes in.-->
